@@ -12,6 +12,13 @@ class App extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
           useMaterial3: true,
         ),
-        routes: routes);
+        onGenerateRoute: (RouteSettings settings) {
+          return MaterialPageRoute(
+              builder: (BuildContext context) => makeRoute(
+                    context: context,
+                    routeName: settings.name,
+                    arguments: settings.arguments,
+                  ));
+        });
   }
 }

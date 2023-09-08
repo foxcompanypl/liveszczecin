@@ -1,6 +1,5 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
+import 'dart:io';
 import 'src/app.dart';
 
 class MyHttpOverrides extends HttpOverrides {
@@ -13,6 +12,6 @@ class MyHttpOverrides extends HttpOverrides {
 }
 
 void main() {
-  HttpOverrides.global = new MyHttpOverrides();
+  HttpOverrides.global = MyHttpOverrides();
   runApp(const App());
 }

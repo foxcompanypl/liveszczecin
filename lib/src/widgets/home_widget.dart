@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:intl/intl.dart';
 import '../models/camera_model.dart';
 import '../services/camera_service.dart';
 
@@ -26,7 +27,7 @@ class _HomeWidgetState extends State<HomeWidget> {
   }
 
   Future<void> _loadData() async {
-    var items = await CameraService.getAll(refresh: true);
+    var items = await CameraService.getAll();
     setState(() {
       this.items = items;
     });
@@ -47,7 +48,8 @@ class _HomeWidgetState extends State<HomeWidget> {
           itemBuilder: (context, index) {
             return InkWell(
               onTap: () {
-                print("Tapped ${items[index].id}");
+                Navigator.pushNamed(context, '/camera',
+                    arguments: items[index]);
               },
               child: Stack(
                 alignment: Alignment.bottomLeft,
@@ -59,6 +61,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                       child: Opacity(
                         opacity: 0.5,
                         child: CachedNetworkImage(
+                          cacheKey:
+                              "${items[index].id}_${DateFormat("yyyyMMddHH").format(DateTime.now())}",
                           imageUrl: items[index].image,
                           fit: BoxFit.cover,
                           placeholder: (context, url) => const Center(

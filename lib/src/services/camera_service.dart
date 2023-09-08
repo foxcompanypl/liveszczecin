@@ -4,27 +4,22 @@ import 'package:http/http.dart' as http;
 import '../models/camera_model.dart';
 
 class CameraService {
-  static const String url = "https://foxcompany.pl/liveszczecin/list.json";
-  static bool _loaded = false;
-  static List<CameraModel> _list = [];
+  static const List<String> urls = [
+    "https://lantech.com.pl/liveszczecinapp/list.json",
+    "http://lantech.com.pl/liveszczecinapp/list.json",
+    "https://foxcompany.pl/liveszczecin/list.json",
+  ];
 
-  static Future load({bool refresh = true}) async {
-    if (_loaded == true && refresh == false) {
-      return;
+  static Future<List<CameraModel>> getAll() async {
+    for (var url in urls) {
+      var response = await http.get(Uri.parse(url));
+      print("Url $url, status: ${response.statusCode}");
+      if (response.statusCode != HttpStatus.ok) {
+        continue;
+      }
+      List<dynamic> json = jsonDecode(utf8.decode(response.bodyBytes));
+      return json.map((json) => CameraModel.fromJson(json)).toList();
     }
-    var response = await http.get(Uri.parse(url));
-    List<dynamic> json = jsonDecode(utf8.decode(response.bodyBytes));
-    _list = json.map((json) => CameraModel.fromJson(json)).toList();
-    _loaded = true;
-  }
-
-  static Future<List<CameraModel>> getAll({bool refresh = true}) async {
-    await load(refresh: refresh);
-    return _list;
-  }
-
-  static Future<CameraModel> get(int id) async {
-    await load();
-    return _list.firstWhere((element) => element.id == id);
+    return [];
   }
 }
