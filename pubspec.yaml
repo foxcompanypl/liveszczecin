@@ -14,7 +14,7 @@ dependencies:
   http: ^1.1.0
   cached_network_image: ^3.2.3
   intl: ^0.18.1
-  video_player: ^2.7.1
+  better_player: ^0.0.63
 
 dev_dependencies:
   flutter_test:
@@ -23,7 +23,3 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-
-trusted_hosts:
-  - liveszczecin.pl
-  - lantech.com.pl

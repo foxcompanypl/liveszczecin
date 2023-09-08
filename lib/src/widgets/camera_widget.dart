@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:video_player/video_player.dart';
+import 'package:better_player/better_player.dart';
 import '../models/camera_model.dart';
 
 class CameraWidget extends StatefulWidget {
@@ -12,7 +12,7 @@ class CameraWidget extends StatefulWidget {
 
 class _CameraWidgetState extends State<CameraWidget> {
   late String _videoUrl;
-  late VideoPlayerController _controller;
+  late BetterPlayerController _betterPlayerController;
 
   @override
   void initState() {
@@ -25,17 +25,27 @@ class _CameraWidgetState extends State<CameraWidget> {
 
   void initVideoPlayer() {
     print("Url: ${_videoUrl}");
-    _controller = VideoPlayerController.networkUrl(Uri.parse(_videoUrl));
-    _controller.initialize().then((_) {
-      setState(() {});
-    });
+    var dataSource = BetterPlayerDataSource(
+      BetterPlayerDataSourceType.network,
+      _videoUrl,
+      liveStream: true,
+    );
+    _betterPlayerController = BetterPlayerController(
+        const BetterPlayerConfiguration(
+            aspectRatio: 16 / 9,
+            fit: BoxFit.contain,
+            autoPlay: true,
+            looping: false,
+            controlsConfiguration:
+                BetterPlayerControlsConfiguration(showControls: false)));
+    _betterPlayerController.setupDataSource(dataSource);
   }
 
   @override
   Widget build(BuildContext context) {
     return AspectRatio(
       aspectRatio: 16 / 9,
-      child: VideoPlayer(_controller),
+      child: BetterPlayer(controller: _betterPlayerController),
     );
   }
 }
