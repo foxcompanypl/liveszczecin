@@ -10,11 +10,10 @@ class App extends StatelessWidget {
         title: 'LiveSzczecin',
         theme: ThemeData.light(useMaterial3: true).copyWith(
             appBarTheme: AppBarTheme(
-                color: Colors.blue.shade200,
-                surfaceTintColor: Colors.transparent)),
+                color: Colors.blue.shade200, scrolledUnderElevation: 0)),
         darkTheme: ThemeData.dark(useMaterial3: true).copyWith(
             appBarTheme: const AppBarTheme(
-                color: Colors.black, surfaceTintColor: Colors.transparent)),
+                color: Colors.black, scrolledUnderElevation: 0)),
         themeMode: ThemeMode.system,
         onGenerateRoute: (RouteSettings settings) {
           return MaterialPageRoute(
