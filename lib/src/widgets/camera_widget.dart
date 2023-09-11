@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:better_player/better_player.dart';
+import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import '../models/camera_model.dart';
 
@@ -17,10 +18,18 @@ class _CameraWidgetState extends State<CameraWidget> {
 
   @override
   void initState() {
+    super.initState();
     // TODO: Remove this line when certificate is valid
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
     _videoUrl = widget.camera.url.replaceFirst(RegExp("^https://"), "http://");
     initVideoPlayer();
-    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _controller.dispose();
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
   }
 
   void initVideoPlayer() {
