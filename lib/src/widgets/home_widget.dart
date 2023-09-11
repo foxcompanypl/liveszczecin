@@ -36,6 +36,8 @@ class _HomeWidgetState extends State<HomeWidget> {
 
   @override
   Widget build(BuildContext context) {
+    int columns = MediaQuery.of(context).size.width > 600 ? 2 : 1;
+    double aspectRatio = MediaQuery.of(context).size.width > 600 ? 1.5 : 2;
     return Scaffold(
         appBar: AppBar(
           title: const Text("LiveSzczecin"),
@@ -51,7 +53,11 @@ class _HomeWidgetState extends State<HomeWidget> {
         body: RefreshIndicator(
           key: _refreshIndicatorKey,
           onRefresh: _loadData,
-          child: ListView.builder(
+          child: GridView.builder(
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: columns,
+              childAspectRatio: aspectRatio,
+            ),
             itemCount: items.length,
             itemBuilder: (context, index) {
               return InkWell(
@@ -63,7 +69,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                   alignment: Alignment.bottomLeft,
                   children: [
                     SizedBox(
-                      height: 250,
+                      height: double.infinity,
                       width: double.infinity,
                       child: CachedNetworkImage(
                         cacheKey:
