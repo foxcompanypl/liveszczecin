@@ -2,7 +2,7 @@ name: liveszczecin
 description: LiveSzczecin App
 publish_to: "none"
 
-version: 2.0.2+7
+version: 2.0.3+8
 
 environment:
   sdk: ">=3.1.0 <4.0.0"
