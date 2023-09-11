@@ -25,7 +25,7 @@ jobs:
         run: echo "${{ secrets.KEYSTORE_FILE_BASE64 }}" | base64 --decode > "${{ github.workspace }}/keystore.jks"
       - name: Create keystore.properties file
         env:
-          KEYSTORE_PROPERTIES_PATH: ${{ github.workspace }}/app/android/keystore.properties
+          KEYSTORE_PROPERTIES_PATH: ${{ github.workspace }}/android/keystore.properties
         run: |
           echo 'storeFile=${{ github.workspace }}/keystore.jks' > $KEYSTORE_PROPERTIES_PATH
           echo 'keyAlias=${{ secrets.KEYSTORE_KEY_ALIAS }}' >> $KEYSTORE_PROPERTIES_PATH
