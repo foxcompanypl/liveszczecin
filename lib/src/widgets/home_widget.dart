@@ -37,71 +37,67 @@ class _HomeWidgetState extends State<HomeWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text("LiveSzczecin"),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.info_outline),
-            onPressed: () {
-              Navigator.pushNamed(context, '/about');
-            },
-          ),
-        ],
-      ),
-      body: RefreshIndicator(
-        key: _refreshIndicatorKey,
-        onRefresh: _loadData,
-        child: ListView.builder(
-          itemCount: items.length,
-          itemBuilder: (context, index) {
-            return InkWell(
-              onTap: () {
-                Navigator.pushNamed(context, '/camera',
-                    arguments: items[index]);
+        appBar: AppBar(
+          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+          title: const Text("LiveSzczecin"),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.info_outline),
+              onPressed: () {
+                Navigator.pushNamed(context, '/about');
               },
-              child: Stack(
-                alignment: Alignment.bottomLeft,
-                children: [
-                  Container(
+            ),
+          ],
+        ),
+        body: RefreshIndicator(
+          key: _refreshIndicatorKey,
+          onRefresh: _loadData,
+          child: ListView.builder(
+            itemCount: items.length,
+            itemBuilder: (context, index) {
+              return InkWell(
+                onTap: () {
+                  Navigator.pushNamed(context, '/camera',
+                      arguments: items[index]);
+                },
+                child: Stack(
+                  alignment: Alignment.bottomLeft,
+                  children: [
+                    Container(
                       height: 250,
                       width: double.infinity,
-                      color: Colors.black,
-                      child: Opacity(
-                        opacity: 0.5,
-                        child: CachedNetworkImage(
-                          cacheKey:
-                              "${items[index].id}_${DateFormat("yyyyMMddHH").format(DateTime.now())}",
-                          imageUrl: items[index].image,
-                          fit: BoxFit.cover,
-                          placeholder: (context, url) => const Center(
-                            child: CircularProgressIndicator(),
-                          ),
-                          errorWidget: (context, url, error) =>
-                              const Icon(Icons.error),
+                      color: Colors.white,
+                      child: CachedNetworkImage(
+                        cacheKey:
+                            "${items[index].id}_${DateFormat("yyyyMMddHH").format(DateTime.now())}",
+                        imageUrl: items[index].image,
+                        fit: BoxFit.cover,
+                        placeholder: (context, url) => const Center(
+                          child: CircularProgressIndicator(),
                         ),
-                      )),
-                  Container(
-                    padding: const EdgeInsets.all(20),
-                    child: Text(
-                      items[index].name,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
+                        errorWidget: (context, url, error) => const Icon(
+                            Icons.error,
+                            size: 50,
+                            color: Colors.red),
                       ),
                     ),
-                  ),
-                ],
-              ),
-            );
-          },
-        ),
-      ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: refresh,
-        icon: const Icon(Icons.refresh),
-        label: const Text('Odśwież'),
-      ),
-    );
+                    Container(
+                      color: Colors.black.withOpacity(0.6),
+                      padding: const EdgeInsets.all(20),
+                      width: double.infinity,
+                      child: Text(
+                        items[index].name,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
+        ));
   }
 }
