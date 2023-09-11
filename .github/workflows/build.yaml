@@ -3,7 +3,7 @@ name: Build
 on:
   push:
     tags:
-      - "*"
+      - "v*.*.*"
 
 jobs:
   build:
@@ -42,8 +42,3 @@ jobs:
         with:
           files: |
             build/app/outputs/bundle/release/app-release.aab
-          tag_name: ${{ github.ref }}
-          body: |
-            Release ${{ github.ref }}
-          draft: false
-          prerelease: false
