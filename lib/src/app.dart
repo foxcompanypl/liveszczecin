@@ -8,10 +8,14 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         title: 'LiveSzczecin',
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
-          useMaterial3: true,
-        ),
+        theme: ThemeData.light(useMaterial3: true).copyWith(
+            appBarTheme: AppBarTheme(
+                color: Colors.blue.shade200,
+                surfaceTintColor: Colors.transparent)),
+        darkTheme: ThemeData.dark(useMaterial3: true).copyWith(
+            appBarTheme: const AppBarTheme(
+                color: Colors.black, surfaceTintColor: Colors.transparent)),
+        themeMode: ThemeMode.system,
         onGenerateRoute: (RouteSettings settings) {
           return MaterialPageRoute(
               builder: (BuildContext context) => makeRoute(

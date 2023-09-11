@@ -12,28 +12,26 @@ class _AboutWidgetState extends State<AboutWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: const Text("LiveSzczecin"),
       ),
       bottomSheet: Container(
         margin: const EdgeInsets.all(30.0),
         child: const Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
+          children: [
             Text("Dev by Foxcompany Łukasz Lis"),
           ],
         ),
       ),
       body: Container(
         margin: const EdgeInsets.all(30.0),
-        child: RichText(
-          text: const TextSpan(
+        child: const Text.rich(
+          TextSpan(
             style: TextStyle(
                 height: 1.5,
                 fontSize: 16.0,
                 fontWeight: FontWeight.normal,
-                decoration: TextDecoration.none,
-                color: Colors.black),
+                decoration: TextDecoration.none),
             children: [
               TextSpan(
                   text: 'LiveSzczecin',

@@ -38,7 +38,6 @@ class _HomeWidgetState extends State<HomeWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
           title: const Text("LiveSzczecin"),
           actions: [
             IconButton(
@@ -63,10 +62,9 @@ class _HomeWidgetState extends State<HomeWidget> {
                 child: Stack(
                   alignment: Alignment.bottomLeft,
                   children: [
-                    Container(
+                    SizedBox(
                       height: 250,
                       width: double.infinity,
-                      color: Colors.white,
                       child: CachedNetworkImage(
                         cacheKey:
                             "${items[index].id}_${DateFormat("yyyyMMddHH").format(DateTime.now())}",
@@ -82,7 +80,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                       ),
                     ),
                     Container(
-                      color: Colors.black.withOpacity(0.6),
+                      color: Colors.black.withOpacity(0.7),
                       padding: const EdgeInsets.all(20),
                       width: double.infinity,
                       child: Text(
