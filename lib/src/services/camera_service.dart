@@ -19,12 +19,20 @@ class CameraService {
         if (response.statusCode != HttpStatus.ok) {
           continue;
         }
-        List<dynamic> json = jsonDecode(utf8.decode(response.bodyBytes));
-        return json.map((json) => CameraModel.fromJson(json)).toList();
+        var json = jsonDecode(utf8.decode(response.bodyBytes));
+        return filterResults(
+            json.map((json) => CameraModel.fromJson(json)).toList());
       } catch (e) {
         debugPrint(e.toString());
       }
     }
     return [];
+  }
+
+  static List<CameraModel> filterResults(List<CameraModel> results) {
+    return results.map((e) {
+      return e.CopyWith(
+          url: e.url.replaceFirst(RegExp("^https://"), "http://"));
+    }).toList();
   }
 }

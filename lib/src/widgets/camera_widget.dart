@@ -13,15 +13,13 @@ class CameraWidget extends StatefulWidget {
 }
 
 class _CameraWidgetState extends State<CameraWidget> {
-  late String _videoUrl;
+  late final String _videoUrl = widget.camera.url;
   late BetterPlayerController _controller;
 
   @override
   void initState() {
     super.initState();
-    // TODO: Remove this line when certificate is valid
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
-    _videoUrl = widget.camera.url.replaceFirst(RegExp("^https://"), "http://");
     initVideoPlayer();
   }
 

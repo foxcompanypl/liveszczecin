@@ -15,4 +15,12 @@ class CameraModel {
         name = json['name'],
         image = json['image'],
         url = json['url'];
+
+  CameraModel CopyWith({int? id, String? name, String? image, String? url}) {
+    return CameraModel(
+        id: id ?? this.id,
+        name: name ?? this.name,
+        image: image ?? this.image,
+        url: url ?? this.url);
+  }
 }
