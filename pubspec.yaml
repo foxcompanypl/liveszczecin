@@ -2,7 +2,7 @@ name: liveszczecin
 description: LiveSzczecin App
 publish_to: "none"
 
-version: 2.0.3+8
+version: 2.0.5+10
 
 environment:
   sdk: ">=3.1.0 <4.0.0"
@@ -15,7 +15,7 @@ dependencies:
   cached_network_image: ^3.2.3
   intl: ^0.18.1
   better_player: ^0.0.63
-  fluttertoast: ^8.2.2
+  in_app_update: ^4.2.0
 
 dev_dependencies:
   flutter_test:

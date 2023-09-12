@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'routes.dart';
+import 'globals.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -8,6 +9,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         title: 'LiveSzczecin',
+        scaffoldMessengerKey: snackbarKey,
         theme: ThemeData.light(useMaterial3: true).copyWith(
             appBarTheme: AppBarTheme(
                 color: Colors.blue.shade200, scrolledUnderElevation: 0)),

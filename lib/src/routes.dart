@@ -8,9 +8,8 @@ import 'models/camera_model.dart';
 
 Widget makeRoute(
     {required BuildContext context, String? routeName, Object? arguments}) {
-  final Widget child =
-      _buildRoute(context: context, routeName: routeName, arguments: arguments);
-  return child;
+  return _buildRoute(
+      context: context, routeName: routeName, arguments: arguments);
 }
 
 Widget _buildRoute({
