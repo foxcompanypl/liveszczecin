@@ -19,7 +19,7 @@ class CameraService {
         if (response.statusCode != HttpStatus.ok) {
           continue;
         }
-        var json = jsonDecode(utf8.decode(response.bodyBytes));
+        List<dynamic> json = jsonDecode(utf8.decode(response.bodyBytes));
         return filterResults(
             json.map((json) => CameraModel.fromJson(json)).toList());
       } catch (e) {
