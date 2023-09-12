@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:intl/intl.dart';
+import 'package:in_app_update/in_app_update.dart';
 //
 import '../models/camera_model.dart';
 import '../services/camera_service.dart';
@@ -20,6 +21,7 @@ class _HomeWidgetState extends State<HomeWidget> {
   @override
   void initState() {
     super.initState();
+    checkForUpdate();
     WidgetsBinding.instance.addPostFrameCallback((_) => refresh());
   }
 
@@ -32,6 +34,41 @@ class _HomeWidgetState extends State<HomeWidget> {
     setState(() {
       this.items = items;
     });
+  }
+
+  Future<bool> performUpdate({bool flexible = false}) async {
+    try {
+      if (flexible) {
+        if (await InAppUpdate.startFlexibleUpdate() ==
+            AppUpdateResult.success) {
+          showSnack("Instalowanie aktualizacji...");
+          await InAppUpdate.completeFlexibleUpdate();
+          return true;
+        }
+      } else {
+        return await InAppUpdate.performImmediateUpdate() ==
+            AppUpdateResult.success;
+      }
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+    return false;
+  }
+
+  Future<void> checkForUpdate() async {
+    try {
+      var info = await InAppUpdate.checkForUpdate();
+      if (info.updateAvailability == UpdateAvailability.updateAvailable) {
+        showSnack("Dostępna jest nowa wersja aplikacji.");
+        await performUpdate(flexible: info.flexibleUpdateAllowed);
+      }
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+  }
+
+  void showSnack(String text) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(text)));
   }
 
   @override
