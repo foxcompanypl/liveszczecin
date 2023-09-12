@@ -5,6 +5,7 @@ import 'package:in_app_update/in_app_update.dart';
 //
 import '../models/camera_model.dart';
 import '../services/camera_service.dart';
+import '../globals.dart';
 
 class HomeWidget extends StatefulWidget {
   const HomeWidget({super.key});
@@ -65,10 +66,6 @@ class _HomeWidgetState extends State<HomeWidget> {
     } catch (e) {
       debugPrint(e.toString());
     }
-  }
-
-  void showSnack(String text) {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(text)));
   }
 
   @override

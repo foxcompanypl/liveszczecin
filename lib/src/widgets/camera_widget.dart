@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:better_player/better_player.dart';
 import 'package:flutter/services.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import '../models/camera_model.dart';
+import '../globals.dart';
 
 class CameraWidget extends StatefulWidget {
   final CameraModel camera;
@@ -15,6 +15,7 @@ class CameraWidget extends StatefulWidget {
 class _CameraWidgetState extends State<CameraWidget> {
   late final String _videoUrl = widget.camera.url;
   late BetterPlayerController _controller;
+  bool _exiting = false;
 
   @override
   void initState() {
@@ -33,27 +34,34 @@ class _CameraWidgetState extends State<CameraWidget> {
   void initVideoPlayer() {
     debugPrint("Url: $_videoUrl");
     var dataSource = BetterPlayerDataSource(
-      BetterPlayerDataSourceType.network,
-      _videoUrl,
-      liveStream: true,
-    );
+        BetterPlayerDataSourceType.network, _videoUrl,
+        liveStream: true, useAsmsAudioTracks: false, useAsmsSubtitles: false);
     _controller = BetterPlayerController(const BetterPlayerConfiguration(
         aspectRatio: 16 / 9,
         fit: BoxFit.contain,
         autoPlay: true,
         looping: false,
+        showPlaceholderUntilPlay: true,
+        allowedScreenSleep: false,
+        placeholder: Center(child: CircularProgressIndicator()),
         controlsConfiguration:
             BetterPlayerControlsConfiguration(showControls: false)));
     _controller.setupDataSource(dataSource);
     _controller.addEventsListener((p0) {
       if (p0.betterPlayerEventType == BetterPlayerEventType.exception) {
-        Fluttertoast.showToast(
-            msg:
-                "Powstał błąd podczas odtwarzania strumienia. Spróbuj ponownie później.",
-            toastLength: Toast.LENGTH_SHORT);
-        Navigator.pop(context);
+        exit();
       }
     });
+  }
+
+  void exit() {
+    if (_exiting) {
+      return;
+    }
+    _exiting = true;
+    showSnack(
+        "Powstał błąd podczas odtwarzania strumienia. Spróbuj ponownie później.");
+    Navigator.pop(context);
   }
 
   @override
