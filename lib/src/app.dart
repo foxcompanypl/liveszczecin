@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'routes.dart';
-import 'globals.dart';
+//
+import 'package:liveszczecin/src/routes.dart';
+import 'package:liveszczecin/src/globals.dart';
 
 class App extends StatelessWidget {
   const App({super.key});

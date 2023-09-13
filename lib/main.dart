@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'src/init.dart';
-import 'src/app.dart';
+//
+import 'package:liveszczecin/src/init.dart';
+import 'package:liveszczecin/src/app.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

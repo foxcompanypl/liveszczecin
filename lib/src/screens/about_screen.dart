@@ -1,14 +1,8 @@
 import 'package:flutter/material.dart';
 
-class AboutWidget extends StatefulWidget {
-  const AboutWidget({super.key});
+class AboutScreen extends StatelessWidget {
+  const AboutScreen({super.key});
 
-  @override
-  State<AboutWidget> createState() => _AboutWidgetState();
-}
-
-class _AboutWidgetState extends State<AboutWidget> {
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(

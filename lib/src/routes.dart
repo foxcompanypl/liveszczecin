@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 //
-import 'widgets/home_widget.dart';
-import 'widgets/camera_widget.dart';
-import 'widgets/about_widget.dart';
+import 'package:liveszczecin/src/screens/home_screen.dart';
+import 'package:liveszczecin/src/screens/camera_screen.dart';
+import 'package:liveszczecin/src/screens/about_screen.dart';
 //
-import 'models/camera_model.dart';
+import 'package:liveszczecin/src/models/camera_model.dart';
 
 Widget makeRoute(
     {required BuildContext context, String? routeName, Object? arguments}) {
@@ -19,11 +19,11 @@ Widget _buildRoute({
 }) {
   switch (routeName) {
     case '/':
-      return const HomeWidget();
+      return const HomeScreen();
     case '/camera':
-      return CameraWidget(camera: arguments as CameraModel);
+      return CameraScreen(camera: arguments as CameraModel);
     case '/about':
-      return const AboutWidget();
+      return const AboutScreen();
     default:
       throw 'Route $routeName is not defined';
   }

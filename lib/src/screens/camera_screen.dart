@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:better_player/better_player.dart';
 import 'package:flutter/services.dart';
-import '../models/camera_model.dart';
-import '../globals.dart';
+//
+import 'package:liveszczecin/src/globals.dart';
+import 'package:liveszczecin/src/models/camera_model.dart';
 
-class CameraWidget extends StatefulWidget {
+class CameraScreen extends StatefulWidget {
   final CameraModel camera;
-  const CameraWidget({super.key, required this.camera});
+  const CameraScreen({super.key, required this.camera});
 
   @override
-  State<CameraWidget> createState() => _CameraWidgetState();
+  State<CameraScreen> createState() => _CameraScreenState();
 }
 
-class _CameraWidgetState extends State<CameraWidget> {
+class _CameraScreenState extends State<CameraScreen> {
   late final String _videoUrl = widget.camera.url;
   late BetterPlayerController _controller;
   bool _exiting = false;

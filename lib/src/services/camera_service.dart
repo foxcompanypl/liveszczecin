@@ -2,7 +2,8 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import '../models/camera_model.dart';
+//
+import 'package:liveszczecin/src/models/camera_model.dart';
 
 class CameraService {
   static final CameraService _instance = CameraService._internal();
