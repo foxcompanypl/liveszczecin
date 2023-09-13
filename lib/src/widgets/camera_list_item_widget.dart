@@ -19,23 +19,24 @@ class _CameraListItemWidgetState extends State<CameraListItemWidget> {
       alignment: Alignment.bottomLeft,
       children: [
         SizedBox(
-          height: double.infinity,
-          width: double.infinity,
-          child: CachedNetworkImage(
-            cacheKey:
-                "${widget.item.id}_${DateFormat("yyyyMMddHH").format(DateTime.now())}",
-            imageUrl: widget.item.image,
-            fadeOutDuration: const Duration(milliseconds: 200),
-            fadeInDuration: const Duration(milliseconds: 200),
-            placeholderFadeInDuration: const Duration(milliseconds: 0),
-            fit: BoxFit.cover,
-            placeholder: (context, url) => const Center(
-              child: CircularProgressIndicator(),
-            ),
-            errorWidget: (context, url, error) =>
-                const Icon(Icons.error, size: 50, color: Colors.red),
-          ),
-        ),
+            height: double.infinity,
+            width: double.infinity,
+            child: widget.item.image != null
+                ? CachedNetworkImage(
+                    cacheKey:
+                        "${widget.item.id}_${DateFormat("yyyyMMddHH").format(DateTime.now())}",
+                    imageUrl: widget.item.image!,
+                    fadeOutDuration: const Duration(milliseconds: 200),
+                    fadeInDuration: const Duration(milliseconds: 200),
+                    placeholderFadeInDuration: const Duration(milliseconds: 0),
+                    fit: BoxFit.cover,
+                    placeholder: (context, url) => const Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                    errorWidget: (context, url, error) =>
+                        const Icon(Icons.error, size: 50, color: Colors.red),
+                  )
+                : null),
         Container(
           color: Colors.black.withOpacity(0.7),
           padding: const EdgeInsets.all(20),

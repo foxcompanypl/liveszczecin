@@ -16,6 +16,7 @@ dependencies:
   intl: ^0.18.1
   better_player: ^0.0.63
   in_app_update: ^4.2.0
+  skeletonizer: ^0.7.0
 
 dev_dependencies:
   flutter_test:

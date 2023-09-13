@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:in_app_update/in_app_update.dart';
-import 'package:liveszczecin/src/widgets/camera_list_widget.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 //
 import 'package:liveszczecin/src/globals.dart';
 import 'package:liveszczecin/src/models/camera_model.dart';
 import 'package:liveszczecin/src/services/camera_service.dart';
+import 'package:liveszczecin/src/widgets/camera_list_widget.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -16,7 +17,12 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
       GlobalKey<RefreshIndicatorState>();
+  bool _loading = true;
   List<CameraModel> items = [];
+  final fakeItems = List.generate(
+    4,
+    (index) => CameraModel(id: 1, name: 'Placeholder', url: '', image: null),
+  );
 
   @override
   void initState() {
@@ -30,9 +36,14 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> _loadData() async {
+    setState(() {
+      _loading = true;
+    });
     var items = await CameraService().getAll();
     setState(() {
       this.items = items;
+      _loading = false;
+      ;
     });
   }
 
@@ -84,7 +95,9 @@ class _HomeScreenState extends State<HomeScreen> {
         body: RefreshIndicator(
           key: _refreshIndicatorKey,
           onRefresh: _loadData,
-          child: CameraListWidget(items: items),
+          child: Skeletonizer(
+              enabled: _loading,
+              child: CameraListWidget(items: _loading ? fakeItems : items)),
         ));
   }
 }
