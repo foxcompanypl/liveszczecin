@@ -21,7 +21,8 @@ class _HomeScreenState extends State<HomeScreen> {
   List<CameraModel> items = [];
   final fakeItems = List.generate(
     4,
-    (index) => CameraModel(id: 1, name: 'Placeholder', url: '', image: null),
+    (index) => CameraModel(
+        id: -1, name: 'Lorem ipsum dolorat sit amet', url: '', image: ''),
   );
 
   @override
@@ -39,7 +40,14 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       _loading = true;
     });
-    var items = await CameraService().getAll();
+    final result = await Future.wait([
+      CameraService().getAll(),
+      Future.delayed(const Duration(milliseconds: 500))
+    ]);
+    final items = result[0] as List<CameraModel>;
+    items.forEach((element) {
+      precacheImage(NetworkImage(element.image), context);
+    });
     setState(() {
       this.items = items;
       _loading = false;
