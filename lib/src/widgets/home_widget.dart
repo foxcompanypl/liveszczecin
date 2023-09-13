@@ -31,7 +31,7 @@ class _HomeWidgetState extends State<HomeWidget> {
   }
 
   Future<void> _loadData() async {
-    var items = await CameraService.getAll();
+    var items = await CameraService().getAll();
     setState(() {
       this.items = items;
     });
@@ -109,6 +109,10 @@ class _HomeWidgetState extends State<HomeWidget> {
                         cacheKey:
                             "${items[index].id}_${DateFormat("yyyyMMddHH").format(DateTime.now())}",
                         imageUrl: items[index].image,
+                        fadeOutDuration: const Duration(milliseconds: 200),
+                        fadeInDuration: const Duration(milliseconds: 200),
+                        placeholderFadeInDuration:
+                            const Duration(milliseconds: 0),
                         fit: BoxFit.cover,
                         placeholder: (context, url) => const Center(
                           child: CircularProgressIndicator(),

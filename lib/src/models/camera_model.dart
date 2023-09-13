@@ -16,6 +16,15 @@ class CameraModel {
         image = json['image'],
         url = json['url'];
 
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'image': image,
+      'url': url,
+    };
+  }
+
   CameraModel CopyWith({int? id, String? name, String? image, String? url}) {
     return CameraModel(
         id: id ?? this.id,

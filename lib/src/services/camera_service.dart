@@ -5,14 +5,19 @@ import 'package:http/http.dart' as http;
 import '../models/camera_model.dart';
 
 class CameraService {
-  static const List<String> urls = [
+  static final CameraService _instance = CameraService._internal();
+  final List<String> _urls = [
     "https://lantech.com.pl/liveszczecinapp/list.json",
     "http://lantech.com.pl/liveszczecinapp/list.json",
     "https://foxcompany.pl/liveszczecin/list.json",
   ];
 
-  static Future<List<CameraModel>> getAll() async {
-    for (var url in urls) {
+  factory CameraService() => _instance;
+
+  CameraService._internal();
+
+  Future<List<CameraModel>> getAll() async {
+    for (var url in _urls) {
       try {
         var response = await http.get(Uri.parse(url));
         debugPrint("Url $url, status: ${response.statusCode}");
@@ -20,7 +25,7 @@ class CameraService {
           continue;
         }
         List<dynamic> json = jsonDecode(utf8.decode(response.bodyBytes));
-        return filterResults(
+        return _filterResults(
             json.map((json) => CameraModel.fromJson(json)).toList());
       } catch (e) {
         debugPrint(e.toString());
@@ -29,7 +34,7 @@ class CameraService {
     return [];
   }
 
-  static List<CameraModel> filterResults(List<CameraModel> results) {
+  List<CameraModel> _filterResults(List<CameraModel> results) {
     return results.map((e) {
       return e.CopyWith(
           url: e.url.replaceFirst(RegExp("^https://"), "http://"));
